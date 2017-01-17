@@ -1,7 +1,7 @@
 const loaderUtils = require('loader-utils');
 const path = require('path');
 
-module.exports = () => undefined;
+module.exports = (content) => <content></content>;
 module.exports.pitch = function (remainingRequest) {
   if (this.cacheable) this.cacheable();
   var query = loaderUtils.parseQuery(this.query);
