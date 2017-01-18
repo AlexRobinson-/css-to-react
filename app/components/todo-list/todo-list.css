@@ -1,5 +1,15 @@
 .Container {
+    color: red;
+}
 
+.Block {
+    background-color: green;
+    padding: 20px;
+    color: blue;
+}
+
+.Block:hover {
+    color: red;
 }
 
 h3.Heading {
@@ -7,13 +17,12 @@ h3.Heading {
 }
 
 ul.List {
-
+    color: green;
 }
 
 li.ListItem {
-
+    color: green;
 }
 
-.ListItem:nth-child(even) {
-    background-color: #bbb;
-}
+
+

@@ -1,7 +1,7 @@
 const loaderUtils = require('loader-utils');
 const path = require('path');
 
-module.exports = (content) => <content></content>;
+module.exports = (content) => content;
 module.exports.pitch = function (remainingRequest) {
   if (this.cacheable) this.cacheable();
   var query = loaderUtils.parseQuery(this.query);
@@ -14,9 +14,7 @@ module.exports.pitch = function (remainingRequest) {
     if(typeof content === 'string') content = [[module.id, content, '']];
     console.log('got content', content.toString());
     
-    console.log(content.toString().match(/\\.[a-z]+\\.[A-Z]+ ?{.*}$/));
     
-var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
 var _react = require('react');
 
@@ -27,6 +25,8 @@ var _classnames = require('classnames');
 var _classnames2 = _interopRequireDefault(_classnames);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
@@ -112,10 +112,16 @@ var print = function print(x) {
   return x;
 };
 
+var potential = [].concat(_toConsumableArray(elementMatches.map(function (match) {
+  return extractElement(match);
+})), _toConsumableArray(divMatches.map(createDivDef)));
+
 var divDefs = divMatches.map(createDivDef).map(useModules).filter(Boolean).filter(canBeComponent).reduce(addComponent, {});
 
-var toExport = _extends({}, content.locals || {}, elementDefs, divDefs);
+var elements = potential.map(useModules).filter(Boolean).filter(canBeComponent).reduce(addComponent, {});
 
-module.exports = toExport;
+content.locals = _extends({}, content.locals || {}, elements);
+
+module.exports = content;
   `.replace('\\', '\\\\');
 }

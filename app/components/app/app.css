@@ -1,5 +1,6 @@
 .Container {
     background-color: #efefef;
+    padding: 20px;
 }
 
 h2.Header {
@@ -13,8 +14,4 @@ img.Logo {
 .ImageContainer {
     border: 4px solid blue;
     display: inline-block;
-}
-
-image.CatImage {
-    background-color: blue;
 }

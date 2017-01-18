@@ -1,5 +1,20 @@
-'use strict';
+const loaderUtils = require('loader-utils');
+const path = require('path');
 
+module.exports = function (content) {
+  return content;
+};
+
+module.exports.pitch = function (remainingRequest) {
+  if (this.cacheable) this.cacheable();
+  var query = loaderUtils.parseQuery(this.query);
+  return `
+    // style-loader: Adds some css to the DOM by adding a <style> tag
+    
+    // load the styles
+    var content = require(${loaderUtils.stringifyRequest(this, "!!" + remainingRequest)});
+    if(typeof content === 'string') content = [[module.id, content, '']];
+    
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
 var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
@@ -21,20 +36,6 @@ function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in ob
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
-
-var content = {
-  toString: function toString() {
-    return '._3tm50djVeMVyzgKEEuOIbA {\n      background-color: #efefef;\n  }\n\n  ._1dqMeCxKdQ-mMQo5DSjOyQ {\n      padding: 20px;\n  }\n\n  ._1wQF7ey2pufkSgu87Ae7jl {\n      min-width: 500px;\n  }\n\n  ._1oyMM3zpYbCV97styqG2pC {\n      border: 4px solid blue;\n      display: inline-block;\n  }\n  \n  div {\n    color: red;\n  }\n  \n  .Stuff.OtherStuff {\n    padding: 10px;\n  }\n  \n  .Block:hover {\n    color: blue;\n  }\n\n  image._3pYwWnO_i_DZ4oq5aRcdCP, image.Cat {\n      background-color: blue;\n  }';
-  },
-  locals: {
-    Block: "_3pYwWnO_i_DZ4oq5akanwy",
-    CatImage: "_3pYwWnO_i_DZ4oq5aRcdCP",
-    Container: "_3tm50djVeMVyzgKEEuOIbA",
-    ImageContainer: "_1oyMM3zpYbCV97styqG2pC",
-    h2_Header: "_1dqMeCxKdQ-mMQo5DSjOyQ",
-    img_Logo: "_1wQF7ey2pufkSgu87Ae7jl"
-  }
-};
 
 var result = (0, _postcss.parse)(content);
 
@@ -114,3 +115,5 @@ var components = result.nodes.map(function (node) {
 content.locals = _extends({}, content.locals || {}, components);
 
 module.exports = content;
+  `.replace('\\', '\\\\');
+}

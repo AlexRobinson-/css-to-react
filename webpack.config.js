@@ -8,6 +8,9 @@ module.exports = {
     publicPath: '/assets/'
   },
   devtool: 'source-map',
+  node: {
+    fs: "empty"
+  },
   module: {
     rules: [
       {
@@ -18,7 +21,7 @@ module.exports = {
       {
         test: /\.css$/,
         include: path.resolve('app'),
-        loaders: ['style-loader', 'css-loader?modules']
+        loaders: ['style-loader', './css-to-react-loader', 'css-loader?modules', 'sass-loader']
       }
     ]
   }

@@ -1,6 +1,10 @@
 import React from 'react'
-import './app.css'
-import { Container, Header, Logo, ImageContainer } from '!./react-style-loader!css-loader?modules!./app.css'
+import {
+  Container,
+  Header,
+  Logo,
+  ImageContainer
+} from './app.css'
 import TodoList from './../todo-list'
 
 const App = () => (
